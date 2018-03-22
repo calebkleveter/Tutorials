@@ -4,7 +4,7 @@ In the [previous tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-pa
 
 In this tutorial, we will be covering how to connect to a relational database (both PostgreSQL and MySQL) and then storing data in it.
 
-The first part will cover connecting to a MySQL database, the second covers connecting to a PostgreSQL database, and the third covers how to create and store models (you do the, almost, same thing for each DB).
+The first part will cover connecting to a MySQL database, the second covers connecting to a PostgreSQL database, and the third covers how to create and store models (you almost do the same thing for each DB).
 
 # [MySQL](https://docs.vapor.codes/3.0/mysql/getting-started/)
 ---
@@ -69,3 +69,6 @@ Your `configure.swift` file should look like this now:
 https://gist.github.com/calebkleveter/a2e985e3f28507eb102b115ad65b39e7
 
 You now have PostgreSQL configured with your Vapor application!
+
+# Models
+
