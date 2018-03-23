@@ -6,8 +6,9 @@ In this tutorial, we will be covering how to connect to a relational database (b
 
 The first part will cover connecting to a MySQL database, the second covers connecting to a PostgreSQL database, and the third covers how to create and store models (you almost do the same thing for each DB).
 
-# [MySQL](https://docs.vapor.codes/3.0/mysql/getting-started/)
 ---
+
+# [MySQL](https://docs.vapor.codes/3.0/mysql/getting-started/)
 
 Open your terminal and run `brew install mysql && brew services start mysql`. This will install MySQL and boot it up. MySQL will subsequently boot whenever you login, so you won't have to do that again. 
 
@@ -70,5 +71,48 @@ https://gist.github.com/calebkleveter/a2e985e3f28507eb102b115ad65b39e7
 
 You now have PostgreSQL configured with your Vapor application!
 
+---
+
 # Models
 
+Now that we are connected to a database, we will create a model that we can store in it.
+
+Create a file by running `touch Sources/App/Models/User.swift` and regenerate your Xcode project.
+
+Import Vapor, Foundation, and the appropriate Fluent package to the file. This will be `FluentPostgreSQL` or `FluentMySQL`.
+
+I will be using the Postgres version of everything database specific in my examples, so make sure to change those to the correct database if you are using a different one.
+
+Create a class called `User` that conforms to the protocol `Content`. This protocol conforms your model to `Codable` and allows it to be create from a request body and returned from a route handler. Make sure you define the class as `final`:
+
+https://gist.github.com/calebkleveter/7708f3eed8708abbf77ec6a55d7c65de
+
+We will want a few properties for our model such as `email`, `password`, `username`, etc., so let's add those:
+
+https://gist.github.com/calebkleveter/cc38abf2e08b23e053b8eaeeadc82a8a
+
+We need to conform to 2 protocols so we can store and query our users. They are `Model` and `Migration`. More specifically, we will conform to `<YOUR-DATABASE>UUIDModel` and `Migration`. We use the specialized version of the `Model` protocol to cut down on the amount of code to write.
+
+Here is what the conformances will look like:
+
+https://gist.github.com/calebkleveter/6d53e6e959ab72ec82d91e4b54b677f8
+
+Pretty simple huh? Your `User.swift` file should look more or less like this now:
+
+https://gist.github.com/calebkleveter/e5269a523dcc6e4ac9de49db62c5e613
+
+The Fluent provider we added to our config can create tables for our models automatically, but it doesn't know about the models unless we add them to the `MigrationConfig`. Go to your `configure` function, and where you create and register the `MigrationConfig` to the app's services, add the `User` model to the config:
+
+https://gist.github.com/calebkleveter/3c8a3f80f09ca104b9bf0ca2847f9337
+
+Now run your app. The Fluent provider should create a `users` table in your database.
+
+**Database Screenshot**
+
+If you are familiar with security for the backend, you will know that storing passwords in plain text is a *bad idea!!!*. We will cover that issue in a later tutorial when we talk about authentication and authorization.
+
+---
+
+Now we know how to connect a database to our Vapor application and make models that we can store in it. We will discuss model querying and routing in our next tutorial, so be sure not to miss it!
+
+If you are interested in downloading the project, it is hosted [on GitHub](https://github.com/calebkleveter/chatter/tree/persisting-data-in-vapor3). If you ever run into any issues, or just want to chat with other Vapor users (AKA, droplets), pop over to the [Slack community](https://vapor.team/). We’d love to hear from you!
