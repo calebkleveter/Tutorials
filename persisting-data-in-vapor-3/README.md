@@ -83,7 +83,7 @@ Import Vapor, Foundation, and the appropriate Fluent package to the file. This w
 
 I will be using the Postgres version of everything database specific in my examples, so make sure to change those to the correct database if you are using a different one.
 
-Create a class called `User` that conforms to the protocol `Content`. This protocol conforms your model to `Codable` and allows it to be create from a request body and returned from a route handler. Make sure you define the class as `final`:
+Create a class called `User` that conforms to the protocol `Content`. This protocol conforms your model to `Codable` and allows it to be created from a request body and returned from a route handler. Make sure you define the class as `final`:
 
 https://gist.github.com/calebkleveter/7708f3eed8708abbf77ec6a55d7c65de
 
