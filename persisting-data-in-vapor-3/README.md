@@ -107,7 +107,7 @@ https://gist.github.com/calebkleveter/3c8a3f80f09ca104b9bf0ca2847f9337
 
 Now run your app. The Fluent provider should create a `users` table in your database.
 
-**Database Screenshot**
+![Tables created!](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/TablesCreated.png?raw=true)
 
 If you are familiar with security for the backend, you will know that storing passwords in plain text is a *bad idea!!!*. We will cover that issue in a later tutorial when we talk about authentication and authorization.
 
