@@ -131,7 +131,7 @@ https://gist.github.com/calebkleveter/8b4d321dc54650d2f983a35fb119dc02
 
 To test this route, we will want to use an API testing tool such as [Postman](https://www.getpostman.com/). Set the URL to `http://localhost:8080/users`, the HTTP method to `POST`, and add data to the request body for all the `User` model properties except `id`:
 
-**Request Screenshot**
+![Test Create User Request](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/CreateUserRequest.png?raw=true)
 
 When you send the request, you should get a response that looks something like this:
 
@@ -139,7 +139,7 @@ https://gist.github.com/calebkleveter/7736abbb3815e563661628fef0bdda76
 
 If you look in your database, there will be the user we just created:
 
-**Screenshot of database query result**
+![User Stored in Database](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/StoredUser.png?raw=true)
 
 ---
 
