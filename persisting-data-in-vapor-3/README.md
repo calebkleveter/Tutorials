@@ -1,4 +1,4 @@
-![Header](https://github.com/calebkleveter/Tutorials/tree/master/persisting-data-in-vapor-3/VaporDatabaseHeader.png)
+![Header](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/VaporDatabaseHeader.png?raw=true)
 
 # Diving into Vapor, Part 2: Persisting Data in Vapor 3
 
