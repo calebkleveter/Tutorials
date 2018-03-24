@@ -2,7 +2,7 @@
 
 # Diving into Vapor, Part 2: Persisting Data in Vapor 3
 
-In the [previous tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-1-up-and-running-with-vapor-3-edab3c79aab9), we looked at how to setup a Vapor project. It's a good place to start, but not very fun. Let's get out application off the ground by adding data persistence!
+In the [previous tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-1-up-and-running-with-vapor-3-edab3c79aab9), we looked at how to setup a Vapor project. It's a good place to start, but not very fun. Let's get our application off the ground by adding data persistence!
 
 In this tutorial, we will be covering how to connect to a relational database (both PostgreSQL and MySQL) and then storing data in it.
 
@@ -12,7 +12,7 @@ The first part will cover connecting to a MySQL database, the second covers conn
 
 # [MySQL](https://docs.vapor.codes/3.0/mysql/getting-started/)
 
-Open your terminal and run `brew install mysql && brew services start mysql`. This will install MySQL and boot it up. MySQL will subsequently boot whenever you login, so you won't have to do that again. 
+Open your terminal and run `brew tap homebrew/services && brew install mysql && brew services start mysql`. This will install MySQL and boot it up. MySQL will subsequently boot whenever you login, so you won't have to do that again. 
 
 We also need to create that database for our app to connect to. Run `mysql -u root -p` and press enter twice (you shouldn't need to enter a password). Run this command in the MySQL prompt:
 
@@ -47,7 +47,7 @@ You now have MySQL configured with your Vapor application!
 
 # [PostgreSQL](https://docs.vapor.codes/3.0/postgresql/getting-started/)
 
-Open your terminal and run `brew install postgres && brew services start postgres`. This will install and boot Postgres. Postgres will subsequently boot whenever you login, so you shouldn't have to start it again.
+Open your terminal and run `brew tap homebrew/services && brew install postgres && brew services start postgres`. This will install and boot Postgres. Postgres will subsequently boot whenever you login, so you shouldn't have to start it again.
 
 We also need to create the database our app will connect to. You can do this by running `createdb <NAME>` in your terminal. I will name it `chatter` to match the name of the application.
 
@@ -63,7 +63,7 @@ https://gist.github.com/calebkleveter/4720018fc188c11d1bc6a0fba40f318a
 
 This provider handles operations such as creating tables in our database when we boot the application.
 
-Below where you initialize `DatabaseConfig`, we need to create a `PostgreSQLDatabaseConfig` it to the databases:
+Below where you initialize `DatabaseConfig`, we need to create a `PostgreSQLDatabaseConfig` and add it to the databases configuration. The Postgres configuration takes in a `username` argument. The value you pass in should be the result of running `whoami` in the terminal:
 
 https://gist.github.com/calebkleveter/2b6a335f07ef0c89fa3805fb542796a1
 
@@ -112,6 +112,34 @@ Now run your app. The Fluent provider should create a `users` table in your data
 ![Tables created!](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/TablesCreated.png?raw=true)
 
 If you are familiar with security for the backend, you will know that storing passwords in plain text is a *bad idea!!!*. We will cover that issue in a later tutorial when we talk about authentication and authorization.
+
+---
+
+# Storing Data
+
+Storing models in your database is incredibly simple. We are going to create a route that creates a `User` model from a request's body and saves the model to the database.
+
+Go to your `routes.swift` file. In the `routes` function, we will register a new `POST`	 route with the router passed in:
+
+https://gist.github.com/calebkleveter/9290413cf2e5a185d56eb0a73b29b2e9
+
+Unlike the `GET` routes that we have seen before, for this route we passed in the `User` type as the first parameter. This tells the router to decode the request's body to a `User` object and pass it into the route handler.
+
+What we want to do is take that `User` model passed into the handler, save it to the database, and return that same user as JSON. All we have to do is add `return user.save(on: request)` to out handler, so our route looks like this:
+
+https://gist.github.com/calebkleveter/8b4d321dc54650d2f983a35fb119dc02
+
+To test this route, we will want to use an API testing tool such as [Postman](https://www.getpostman.com/). Set the URL to `http://localhost:8080/users`, the HTTP method to `POST`, and add data to the request body for all the `User` model properties except `id`:
+
+**Request Screenshot**
+
+When you send the request, you should get a response that looks something like this:
+
+https://gist.github.com/calebkleveter/7736abbb3815e563661628fef0bdda76
+
+If you look in your database, there will be the user we just created:
+
+**Screenshot of database query result**
 
 ---
 
