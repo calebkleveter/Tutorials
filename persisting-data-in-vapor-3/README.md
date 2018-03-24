@@ -123,13 +123,13 @@ Go to your `routes.swift` file. In the `routes` function, we will register a new
 
 https://gist.github.com/calebkleveter/9290413cf2e5a185d56eb0a73b29b2e9
 
-Unlike the `GET` routes that we have seen before, for this route we passed in the `User` type as the first parameter. This tells the router to decode the request's body to a `User` object and pass it into the route handler.
+Unlike the `GET` routes that we have seen before, for this route we passed in the `User` type in as the first parameter. This tells the router to decode the request's body to a `User` object and pass it into the route handler.
 
 What we want to do is take that `User` model passed into the handler, save it to the database, and return that same user as JSON. All we have to do is add `return user.save(on: request)` to out handler, so our route looks like this:
 
 https://gist.github.com/calebkleveter/8b4d321dc54650d2f983a35fb119dc02
 
-To test this route, we will want to use an API testing tool such as [Postman](https://www.getpostman.com/). Set the URL to `http://localhost:8080/users`, the HTTP method to `POST`, and add data to the request body for all the `User` model properties except `id`:
+To test this route, we will want to use an API testing tool such as [Postman](https://www.getpostman.com/). Set the URL to `http://localhost:8080/users`, the HTTP method to `POST`, and add a JSON object to the request's body that has all the `User` properties except for `id`:
 
 ![Test Create User Request](https://github.com/calebkleveter/Tutorials/blob/master/persisting-data-in-vapor-3/CreateUserRequest.png?raw=true)
 
