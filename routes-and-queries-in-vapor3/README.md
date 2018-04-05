@@ -22,5 +22,39 @@ Then go to the project in the terminal and run `vapor build && vapor run revert 
 
 ---
 
-# Routing
+# [Routing](https://docs.vapor.codes/3.0/getting-started/routing/)
+
+Routing is based around the idea of a [controller](https://docs.vapor.codes/3.0/getting-started/controllers/). A controller is simply a set of methods that take in a request and return a response, wrapped in a class.
+
+We will create a simple API for our `User` model. Create a `UserController.swift` file in the `Controllers` directory using `touch Sources/App/Controllers/UserController.swift` and regenerate your Xcode project. Import both the Vapor and Fluent modules.
+
+As said before, a controller is a class. Create a new `UserController` class marked `final` and conforming to `RouteCollection`. To conform to `RouteCollection`, you need a method with the signature `boot(router: Router)throws`. Leave the body of the method empty for now.
+
+https://gist.github.com/calebkleveter/ac7c5a460fa5976b617efae7016b61e1
+
+A RESTful API typically allows you to run [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations on a model. We will follow the same model. We will start with the read operation because it is easier to understand the mechanics.
+
+Add the following method to your `UserController` class:
+
+https://gist.github.com/calebkleveter/d7ffd5b802b9fa1d2f96bec34ee4687c
+
+This method takes in a `Request` object and returns an array of `User` models wrapped in a `Future`.
+
+A `Request` is actually closer to a request container than an actual request. It has additional functions such as an event loop and the ability to create a connection to the database. The actual request data is in `request.http`.
+
+The reason we return a `Future` instead of a straight `User` model array is because Vapor 3 is asynchronous. Fetching data from the database takes time, and we don't want to hog up threads, so instead we while we wait for the operation to complete, we allow other requests to run.
+
+---
+
+# [Querying](https://docs.vapor.codes/3.0/fluent/querying/)
+
+In the body of the index method, we run query on the `User` model. We create the query with the `User.query(on: request)` method. When we use `.all()`, we run the query and fetch all the results of the query as an array. Because we don't need to run any operations on those users, we just return them from the method.
+
+Create another route handler with the name `show` that returns a single `User` model in a `Future`. This route will be used to get a user with a given username. The path for this route will look like `/users/:username`. For this to work, we need to conform `User` to `Parameter`. The implementation is already done for us, so we don't have to worry about that.
+
+The body for the `show` handler is also very simple. All we have to do is get the `User` model from the request's parameters as return it:
+
+https://gist.github.com/calebkleveter/b54ff245aaca7372f2e6ad791d17aa73
+
+
 
