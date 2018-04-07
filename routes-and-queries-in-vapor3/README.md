@@ -22,7 +22,7 @@ Then go to the project in the terminal and run `vapor build && vapor run revert 
 
 ---
 
-# [Routing](https://docs.vapor.codes/3.0/getting-started/routing/)
+# [Routing 101](https://docs.vapor.codes/3.0/getting-started/routing/)
 
 Routing is based around the idea of a [controller](https://docs.vapor.codes/3.0/getting-started/controllers/). A controller is simply a set of methods that take in a request and return a response, wrapped in a class.
 
@@ -46,7 +46,7 @@ The reason we return a `Future` instead of a straight `User` model array is beca
 
 ---
 
-# [Querying](https://docs.vapor.codes/3.0/fluent/querying/)
+# [The Basics of Querying](https://docs.vapor.codes/3.0/fluent/querying/)
 
 In the body of the index method, we run query on the `User` model. We create the query with the `User.query(on: request)` method. When we use `.all()`, we run the query and fetch all the results of the query as an array. Because we don't need to run any operations on those users, we just return them from the method.
 
@@ -55,6 +55,14 @@ Create another route handler with the name `show` that returns a single `User` m
 The body for the `show` handler is also very simple. All we have to do is get the `User` model from the request's parameters as return it:
 
 https://gist.github.com/calebkleveter/b54ff245aaca7372f2e6ad791d17aa73
+
+To create a new `User` and save it to the database, we need to decode the `User` from the request's body and call `.save(on:)` on it. Vapor has built in router methods that decode the body for you, so all we need to do is accept a `User` model as a second parameter in our route handler:
+
+https://gist.github.com/calebkleveter/6608eef0b0634aefc48c702eaea3917e
+
+Finally we will add a `delete` route handler where we get a user from the route parameters and call `.delete(on:)`. According to [RFC 7231](https://devdocs.io/http/rfc7231#section-6.3.5), a 204 (No Content) status code should be returned when a there is no additional content to send in the response body, so we will chain a `.transform(to:)` call to the `delete`:
+
+https://gist.github.com/calebkleveter/fb2c10243d47183617f1d5398588b8e6
 
 
 
