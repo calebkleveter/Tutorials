@@ -60,9 +60,19 @@ To create a new `User` and save it to the database, we need to decode the `User`
 
 https://gist.github.com/calebkleveter/6608eef0b0634aefc48c702eaea3917e
 
+To update a user, we will take in a decoded request body and update the user's properties with the values. We will get the user from the route parameters. We then save the user and return it.
+
+The type used to update will look like the following. Place it in `UserController.swift` (or a new file if you prefer):
+
+https://gist.github.com/calebkleveter/324a596616d1b8134f96c090043ffb5e
+
+The `update` method will look like this:
+
+https://gist.github.com/calebkleveter/b7d43f414921548067f8e31c2c101fbc
+
 Finally we will add a `delete` route handler where we get a user from the route parameters and call `.delete(on:)`. According to [RFC 7231](https://devdocs.io/http/rfc7231#section-6.3.5), a 204 (No Content) status code should be returned when a there is no additional content to send in the response body, so we will chain a `.transform(to:)` call to the `delete`:
 
 https://gist.github.com/calebkleveter/fb2c10243d47183617f1d5398588b8e6
 
-
+# [Registering Routes](https://docs.vapor.codes/3.0/routing/getting-started/#registering-a-route-using-vapor)
 
