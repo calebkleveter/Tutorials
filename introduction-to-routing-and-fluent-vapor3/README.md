@@ -1,3 +1,5 @@
+![Header Image](https://raw.githubusercontent.com/calebkleveter/Tutorials/master/introduction-to-routing-and-fluent-vapor3/header.png)
+
 # Diving into Vapor, Part 3: Introduction to Routing and Fluent in Vapor 3
 
 In that [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-2-persisting-data-in-vapor-3-c927638301e8), we learned how to connect a database to our app and save models to it. In this tutorial, we will learn how to query that database to get, update, or delete that data.
