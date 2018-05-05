@@ -1,4 +1,4 @@
-# Diving into Vapor, Part 3: Routes and Queries in Vapor 3
+# Diving into Vapor, Part 3: Introduction to Routing and Fluent in Vapor 3
 
 In that [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-2-persisting-data-in-vapor-3-c927638301e8), we learned how to connect a database to our app and save models to it. In this tutorial, we will learn how to query that database to get, update, or delete that data.
 
@@ -76,3 +76,28 @@ https://gist.github.com/calebkleveter/fb2c10243d47183617f1d5398588b8e6
 
 # [Registering Routes](https://docs.vapor.codes/3.0/routing/getting-started/#registering-a-route-using-vapor)
 
+To register a route handler with a given path, we use the methods on the router that map to HTTP methods (`.get`, `.post`, `.delete`, etc.). These methods take in the path, then the handler. HTTP methods that support a body can also take in a type conforming to `Content` that the request body will be decoded to before the handler is run.
+
+All the handlers in the `UserController` will have a root path of `/users`. We could ad this to the front of every path, but it makes more sense to create a route group. You could think of this as another router that automatically adds a root path and/or middleware to the handlers registered to it. Create the group in the `UserController.boot(router:)` method:
+
+https://gist.github.com/calebkleveter/6a7b01aedb94fc665ea4993431dc79fe
+
+We then register each handler according to the HTTP method it needs:
+
+https://gist.github.com/calebkleveter/1637ba2cc214551732b57e783f67ac53
+
+The routes that start with `User.self` and `UserContent.self` will decode the body of the request to that type and pass it in to the handler.
+
+If you want to better understand the path names for each handler, [this resource](http://www.restapitutorial.com/lessons/restfulresourcenaming.html) will be helpful.
+
+Your `UserController.swift` file should now look like this:
+
+https://gist.github.com/calebkleveter/d007af07f5ba1a92ad98dba482fb2430
+
+Finally, to register the routes with application's route, go to the global `routes(_:)` function, delete the current implementation, and call `router.register(controller:)`:
+
+https://gist.github.com/calebkleveter/f6a60627ac13a1d5c9ed4280fadcae12
+
+---
+
+Great Job! You have implemented the basic CRUD operations for the `User` model! If you have any questions, comments, or just want to chat, head over to our [Discord server](https://discord.gg/7PWxvX9). See you there!
