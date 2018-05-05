@@ -102,4 +102,4 @@ https://gist.github.com/calebkleveter/f6a60627ac13a1d5c9ed4280fadcae12
 
 ---
 
-Great Job! You have implemented the basic CRUD operations for the `User` model! If you have any questions, comments, or just want to chat, head over to our [Discord server](https://discord.gg/7PWxvX9). See you there!
+Great Job! You have implemented the basic CRUD operations for the `User` model! The source-code for this project can be found [here](https://github.com/calebkleveter/chatter/tree/basic-routing-and-fluent). If you have any questions, comments, or just want to chat, head over to our [Discord server](https://discord.gg/7PWxvX9). See you there!
