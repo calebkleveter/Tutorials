@@ -2,6 +2,8 @@
 
 In that [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-2-persisting-data-in-vapor-3-c927638301e8), we learned how to connect a database to our app and save models to it. In this tutorial, we will learn how to query that database to get, update, or delete that data.
 
+**Note:** I know I promised we would discuss querying and routing in this tutorial. I tried but it just was getting too long for that 😞. We will dive a little deeper next time where we will look at more complex querying pivot tables.
+
 ---
 
 Before we start adding routes though, we are going to make a change to the `User` model. As it currently is built, the unique property of the model is the `id` property, which is a UUID. Wouldn't it make sense to have the `username` property be unique? It's actually pretty simple to do that.
